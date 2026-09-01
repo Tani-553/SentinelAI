@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+
+# Node
+node_modules/
+frontend/node_modules/
+
+# Environment variables
+.env
+
+# Raw datasets
+ml/data/raw/
+*.csv
+
+# Python cache / notebooks
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build files
+frontend/dist/
+
+# IDE
+.vscode/
+# Generated ML processed data
+ml/data/processed/*.npz

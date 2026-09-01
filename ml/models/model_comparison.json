@@ -1,0 +1,23 @@
+{
+  "selection_split": "stratified validation split from training data",
+  "random_seed": 42,
+  "selection_priority": [
+    "pr_auc",
+    "f1_score"
+  ],
+  "selected_model": "hist_gradient_boosting",
+  "validation_metrics": {
+    "logistic_regression": {
+      "pr_auc": 0.6790030890368571,
+      "precision": 0.05998286203941731,
+      "recall": 0.8860759493670886,
+      "f1_score": 0.11235955056179775
+    },
+    "hist_gradient_boosting": {
+      "pr_auc": 0.7288341115227766,
+      "precision": 0.378698224852071,
+      "recall": 0.810126582278481,
+      "f1_score": 0.5161290322580645
+    }
+  }
+}

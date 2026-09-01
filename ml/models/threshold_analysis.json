@@ -1,0 +1,119 @@
+{
+  "test_set": "held-out test split created by preprocess.py",
+  "thresholds_evaluated": [
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9
+  ],
+  "results": [
+    {
+      "threshold": 0.3,
+      "precision": 0.17751479289940827,
+      "recall": 0.9183673469387755,
+      "f1_score": 0.2975206611570248,
+      "true_positives": 90,
+      "false_positives": 417,
+      "true_negatives": 56447,
+      "false_negatives": 8
+    },
+    {
+      "threshold": 0.4,
+      "precision": 0.23655913978494625,
+      "recall": 0.8979591836734694,
+      "f1_score": 0.37446808510638296,
+      "true_positives": 88,
+      "false_positives": 284,
+      "true_negatives": 56580,
+      "false_negatives": 10
+    },
+    {
+      "threshold": 0.5,
+      "precision": 0.2972972972972973,
+      "recall": 0.8979591836734694,
+      "f1_score": 0.4467005076142132,
+      "true_positives": 88,
+      "false_positives": 208,
+      "true_negatives": 56656,
+      "false_negatives": 10
+    },
+    {
+      "threshold": 0.6,
+      "precision": 0.37777777777777777,
+      "recall": 0.8673469387755102,
+      "f1_score": 0.5263157894736842,
+      "true_positives": 85,
+      "false_positives": 140,
+      "true_negatives": 56724,
+      "false_negatives": 13
+    },
+    {
+      "threshold": 0.7,
+      "precision": 0.43005181347150256,
+      "recall": 0.8469387755102041,
+      "f1_score": 0.570446735395189,
+      "true_positives": 83,
+      "false_positives": 110,
+      "true_negatives": 56754,
+      "false_negatives": 15
+    },
+    {
+      "threshold": 0.8,
+      "precision": 0.49696969696969695,
+      "recall": 0.8367346938775511,
+      "f1_score": 0.623574144486692,
+      "true_positives": 82,
+      "false_positives": 83,
+      "true_negatives": 56781,
+      "false_negatives": 16
+    },
+    {
+      "threshold": 0.9,
+      "precision": 0.5827338129496403,
+      "recall": 0.826530612244898,
+      "f1_score": 0.6835443037974683,
+      "true_positives": 81,
+      "false_positives": 58,
+      "true_negatives": 56806,
+      "false_negatives": 17
+    }
+  ],
+  "recommendations": {
+    "best_f1": {
+      "threshold": 0.9,
+      "precision": 0.5827338129496403,
+      "recall": 0.826530612244898,
+      "f1_score": 0.6835443037974683,
+      "true_positives": 81,
+      "false_positives": 58,
+      "true_negatives": 56806,
+      "false_negatives": 17,
+      "selection_rule": "Highest F1-score among the evaluated thresholds."
+    },
+    "fraud_protection": {
+      "threshold": 0.3,
+      "precision": 0.17751479289940827,
+      "recall": 0.9183673469387755,
+      "f1_score": 0.2975206611570248,
+      "true_positives": 90,
+      "false_positives": 417,
+      "true_negatives": 56447,
+      "false_negatives": 8,
+      "selection_rule": "Highest recall; precision breaks an equal-recall tie."
+    },
+    "customer_friendly": {
+      "threshold": 0.9,
+      "precision": 0.5827338129496403,
+      "recall": 0.826530612244898,
+      "f1_score": 0.6835443037974683,
+      "true_positives": 81,
+      "false_positives": 58,
+      "true_negatives": 56806,
+      "false_negatives": 17,
+      "selection_rule": "Highest precision; recall breaks an equal-precision tie."
+    }
+  }
+}
