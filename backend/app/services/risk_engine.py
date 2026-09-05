@@ -9,7 +9,7 @@ from typing import Any
 import joblib
 import pandas as pd
 
-from backend.app.schemas import PredictionResponse, RiskMode, TransactionFeatures
+from backend.app.schemas import PredictionResponse, RiskFactor, RiskMode, TransactionFeatures
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
@@ -62,6 +62,39 @@ class RiskEngine:
         """Return the persisted test metrics without recalculating them."""
         return self.metrics
 
+    def _get_risk_factors(
+        self, transaction_frame: pd.DataFrame, base_probability: float
+    ) -> list[RiskFactor]:
+        """Estimate local sensitivity by replacing one input at a time with its train median."""
+        medians = self.preprocessor.named_steps["imputer"].statistics_
+        baseline_frames: list[pd.DataFrame] = []
+        for index, feature in enumerate(self.feature_names):
+            baseline_frame = transaction_frame.copy()
+            baseline_frame.iloc[0, index] = medians[index]
+            baseline_frames.append(baseline_frame)
+        baseline_values = self.model.predict_proba(
+            self.preprocessor.transform(pd.concat(baseline_frames, ignore_index=True))
+        )[:, 1]
+        factors: list[RiskFactor] = []
+        for index, feature in enumerate(self.feature_names):
+            impact = base_probability - float(baseline_values[index])
+            factors.append(
+                RiskFactor(
+                    feature=feature,
+                    observed_value=float(transaction_frame.iloc[0, index]),
+                    baseline_value=float(medians[index]),
+                    impact=round(impact, 6),
+                    direction=(
+                        "increases risk"
+                        if impact > 0.000001
+                        else "reduces risk"
+                        if impact < -0.000001
+                        else "no material change"
+                    ),
+                )
+            )
+        return sorted(factors, key=lambda factor: abs(factor.impact), reverse=True)[:3]
+
     def predict(
         self, transaction: TransactionFeatures, risk_mode: RiskMode
     ) -> PredictionResponse:
@@ -90,4 +123,5 @@ class RiskEngine:
             threshold_used=threshold,
             decision=decision,
             explanation=explanation,
+            risk_factors=self._get_risk_factors(transaction_frame, fraud_probability),
         )

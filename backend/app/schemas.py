@@ -67,6 +67,16 @@ class PredictionRequest(BaseModel):
     risk_mode: RiskMode = RiskMode.BALANCED
 
 
+class RiskFactor(BaseModel):
+    """A local one-feature sensitivity signal around the current transaction."""
+
+    feature: str
+    observed_value: float
+    baseline_value: float
+    impact: float
+    direction: str
+
+
 class PredictionResponse(BaseModel):
     """Model score and threshold-based action for one transaction."""
 
@@ -76,3 +86,4 @@ class PredictionResponse(BaseModel):
     threshold_used: float
     decision: str
     explanation: str
+    risk_factors: list[RiskFactor]
